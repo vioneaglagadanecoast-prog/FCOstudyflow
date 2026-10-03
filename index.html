@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudyFlow - a student productivity dashboard">
+  <title>StudyFlow | Student Productivity Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div><strong>StudyFlow</strong><span>Student Hub</span></div>
+    </div>
+    <nav>
+      <button class="nav-link active" data-view="dashboard"><span>⌂</span> Dashboard</button>
+      <button class="nav-link" data-view="tasks"><span>✓</span> Tasks</button>
+      <button class="nav-link" data-view="notes"><span>▤</span> Notes</button>
+      <button class="nav-link" data-view="focus"><span>◷</span> Focus Timer</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-link" id="themeBtn"><span>☾</span> Toggle Theme</button>
+      <div class="tip"><strong>Study tip</strong><p>Break big assignments into small, specific tasks.</p></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="menuBtn">☰</button>
+      <div>
+        <p class="eyebrow">YOUR PRODUCTIVITY SPACE</p>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="top-actions">
+        <span class="date" id="today"></span>
+        <button class="icon-btn" id="clearDataBtn" title="Reset all local data">↺</button>
+      </div>
+    </header>
+
+    <section class="view active" id="dashboard">
+      <div class="hero">
+        <div>
+          <span class="badge">Keep moving forward</span>
+          <h2 id="greeting">Good evening!</h2>
+          <p>Organize your schoolwork, capture ideas, and protect your study time.</p>
+        </div>
+        <div class="hero-orb">✦</div>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><span>Total Tasks</span><strong id="totalTasks">0</strong><small>in your planner</small></div>
+        <div class="stat-card"><span>Completed</span><strong id="completedTasks">0</strong><small id="completionRate">0% complete</small></div>
+        <div class="stat-card"><span>Notes</span><strong id="noteCount">0</strong><small>saved locally</small></div>
+        <div class="stat-card"><span>Focus Sessions</span><strong id="sessionCount">0</strong><small>completed sessions</small></div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><div><p class="eyebrow">PLANNER</p><h3>Upcoming Tasks</h3></div><button class="text-btn" data-view-target="tasks">View all →</button></div>
+          <div id="upcomingTasks" class="task-list empty">No tasks yet. Add your first task.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><p class="eyebrow">QUICK NOTE</p><h3>Capture an Idea</h3></div></div>
+          <form id="quickNoteForm" class="stack">
+            <input id="quickNoteTitle" placeholder="Note title" maxlength="60" required>
+            <textarea id="quickNoteBody" placeholder="Write a quick thought..." rows="5" required></textarea>
+            <button class="primary" type="submit">Save Note</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="tasks">
+      <div class="section-intro"><div><p class="eyebrow">TASK MANAGER</p><h2>Plan your workload</h2><p>Add, complete, filter, and delete school tasks.</p></div><button class="primary" id="addTaskBtn">＋ Add Task</button></div>
+      <div class="toolbar">
+        <input id="taskSearch" placeholder="Search tasks...">
+        <select id="taskFilter"><option value="all">All tasks</option><option value="active">Active</option><option value="done">Completed</option></select>
+      </div>
+      <div class="panel"><div id="allTasks" class="task-list empty">No tasks yet.</div></div>
+    </section>
+
+    <section class="view" id="notes">
+      <div class="section-intro"><div><p class="eyebrow">KNOWLEDGE BANK</p><h2>Your notes</h2><p>Keep short study notes, reminders, and ideas in one place.</p></div><button class="primary" id="addNoteBtn">＋ New Note</button></div>
+      <div id="notesGrid" class="notes-grid empty">No notes yet. Create one to get started.</div>
+    </section>
+
+    <section class="view" id="focus">
+      <div class="section-intro"><div><p class="eyebrow">DEEP WORK</p><h2>Focus Timer</h2><p>Use a simple Pomodoro-style session to protect your study time.</p></div></div>
+      <div class="focus-layout">
+        <div class="timer-card">
+          <span class="badge" id="timerMode">FOCUS</span>
+          <div class="timer" id="timerDisplay">25:00</div>
+          <div class="timer-controls"><button class="primary" id="startTimer">Start</button><button class="secondary" id="resetTimer">Reset</button></div>
+          <div class="progress"><span id="timerProgress"></span></div>
+          <p id="timerStatus">Ready for a focused session.</p>
+        </div>
+        <div class="panel">
+          <p class="eyebrow">HOW IT WORKS</p>
+          <h3>25 minutes of focus</h3>
+          <ul class="clean-list">
+            <li>Choose one task and remove distractions.</li>
+            <li>Study until the timer ends.</li>
+            <li>Take a short break, then repeat.</li>
+            <li>Completed focus sessions are counted on your dashboard.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="taskDialog">
+    <form method="dialog" id="taskForm" class="dialog-form">
+      <div class="panel-head"><div><p class="eyebrow">NEW TASK</p><h3>Add a task</h3></div><button type="button" class="close" data-close="taskDialog">×</button></div>
+      <label>Task name<input id="taskTitle" maxlength="100" required placeholder="e.g. Finish database activity"></label>
+      <label>Subject<input id="taskSubject" maxlength="40" placeholder="e.g. Web Development"></label>
+      <label>Due date<input id="taskDue" type="date"></label>
+      <label>Priority<select id="taskPriority"><option>Normal</option><option>High</option><option>Low</option></select></label>
+      <button class="primary" type="submit">Add Task</button>
+    </form>
+  </dialog>
+
+  <dialog id="noteDialog">
+    <form method="dialog" id="noteForm" class="dialog-form">
+      <div class="panel-head"><div><p class="eyebrow">NEW NOTE</p><h3>Create a note</h3></div><button type="button" class="close" data-close="noteDialog">×</button></div>
+      <label>Title<input id="noteTitle" maxlength="60" required placeholder="e.g. CSS reminders"></label>
+      <label>Content<textarea id="noteBody" rows="8" maxlength="1000" required placeholder="Write your note..."></textarea></label>
+      <button class="primary" type="submit">Save Note</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
